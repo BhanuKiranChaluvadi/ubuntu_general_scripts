@@ -1,8 +1,6 @@
 #!/usr/bin/python
 import argparse
-import os
 import os.path
-import sys
 from subprocess import call
 
 # cd /home/bc/Desktop/laptics/run_cmd
@@ -31,7 +29,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     for file in os.listdir(args.input_dir):
-        if file.endswith(".wav"):
+        if file.endswith(".wav") and not os.path.exists(os.path.join(args.input_dir, file)):
             # Function call
             # call(["ls", "-l"])
             # call(["pwd"])
