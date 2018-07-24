@@ -9,6 +9,8 @@ from subprocess import call
 # --input_dir=/home/bc/converted_audio/recordings
 # --output_dir=/home/bc/converted_audio/loudest_section
 
+# This is the place where my executable- extract_loudest_section lies.
+# Need to change from static to argument input.
 os.chdir("/tmp/extract_loudest_section/gen/bin")
 
 if __name__ == '__main__':
