@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import csv
 import re  # for case insensitivity search
 import argparse
@@ -7,12 +6,13 @@ import os.path
 from subprocess import call
 
 # Example run
+# cd Desktop/laptics/find_audio/
 """
 python main.py \
 --input_csv_path=/home/bc/Downloads/dataset/tatoeba_audio_eng/sentences_with_audio.csv \
---search_word=save \
 --audio_file_path=/home/bc/Downloads/dataset/tatoeba_audio_eng/audio/CK \
---copy_path=/home/bc/Downloads/dataset/save
+--search_word=save \
+--copy_path=/home/bc/Downloads/dataset
 
 """
 if __name__ == '__main__':
@@ -48,9 +48,15 @@ if __name__ == '__main__':
     with open(args.input_csv_path, 'rb') as csvfile:
         audio_files_reader = csv.reader(csvfile, delimiter='\t')
 
+        # search_word = args.search_word
+        search_word = " "+args.search_word+"[ .?,!']"   # To avoid other strings containing this string.
+        saved_path = os.path.join(args.copy_path, args.search_word)
+
         # header = ['id', 'username', 'text']
         for row in audio_files_reader:
             sentence = row[2]
-            if re.search(args.search_word, sentence, re.IGNORECASE):
+            if re.search(search_word, sentence, re.IGNORECASE):
                 file_name = row[0] + ".mp3"
-                call(["cp", os.path.join(args.audio_file_path, file_name), args.copy_path])
+
+                call(["mkdir", "-p", saved_path])
+                call(["cp", os.path.join(args.audio_file_path, file_name), saved_path])
