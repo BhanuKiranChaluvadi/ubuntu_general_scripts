@@ -49,7 +49,7 @@ if __name__ == '__main__':
         audio_files_reader = csv.reader(csvfile, delimiter='\t')
 
         # search_word = args.search_word
-        search_word = " "+args.search_word+"[ .?,!']"   # To avoid other strings containing this string.
+        search_word = " ?"+search_word+"\W"   # To avoid other strings containing this string.
         saved_path = os.path.join(args.copy_path, args.search_word)
         call(["mkdir", "-p", saved_path])
 
