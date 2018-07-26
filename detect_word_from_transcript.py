@@ -51,13 +51,12 @@ if __name__ == '__main__':
         # search_word = args.search_word
         search_word = " "+args.search_word+"[ .?,!']"   # To avoid other strings containing this string.
         saved_path = os.path.join(args.copy_path, args.search_word)
+        call(["mkdir", "-p", saved_path])
 
         # header = ['id', 'username', 'text']
         for row in audio_files_reader:
             sentence = row[2]
             if re.search(search_word, sentence, re.IGNORECASE):
-                file_name = row[0] + ".mp3"
-
-                call(["mkdir", "-p", saved_path])
+                file_name = row[0] + ".mp3"                
                 call(["cp", os.path.join(args.audio_file_path, file_name), saved_path])
                 
